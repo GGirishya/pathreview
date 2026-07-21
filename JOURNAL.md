@@ -15,7 +15,8 @@ subsequent " ".join(...) call then raises a TypeError because it cannot join
 a None value into a string. A successful fix ensures None values are
 normalized to empty strings regardless of whether the key is missing or
 explicitly set to None, preventing the crash on malformed or incomplete
-context chunks.
+context chunks. This issue is right and relevant to me as i will not be burning myself out in terms of what tier i chose.
+I wanted to also work with an issue that involes RAG which this issue does.
 
 **Branch name:** fix/153-faithfulness-checker-none-text
 
