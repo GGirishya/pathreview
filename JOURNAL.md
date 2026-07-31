@@ -26,7 +26,7 @@ I wanted to also work with an issue that involes RAG which this issue does.
 ---
 ## Week 8 — Reproduction & solution planning
 
-**Reproduction commit link:** [paste the commit URL from step 1 here — e.g. https://github.com/GGirishya/pathreview/commit/60c7ecb]
+**Reproduction commit link:** [https://github.com/GGirishya/pathreview/commit/60c7ecb]
 
 **Reproduction summary:**
 Reproduced by running `pytest tests/unit/test_faithfulness_checker.py -k test_none_context_chunk_text -v`, which fails with `TypeError: sequence item 0: expected str instance, NoneType found` at the `.join()` call in `check()`, confirming the root cause described in the issue.
