@@ -37,3 +37,50 @@ Reproduced by running `pytest tests/unit/test_faithfulness_checker.py -k test_no
 
 **Blockers or open questions:**
 Multiple contributors have linked PRs to issue #153, so I may need to compare my fix against theirs before finalizing next week.
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+Applied the fix to `rag/evaluator/faithfulness_checker.py` — changed
+`chunk.get("text", "")` to `chunk.get("text") or ""` so both a missing
+`"text"` key and an explicit `None` value normalize to an empty string.
+The previously-failing test `test_none_context_chunk_text` now passes.
+
+**Next steps:**
+Run the test suite to confirm no regressions, finalize the PR
+description, and submit the PR.
+
+**Blockers:**
+None.
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** https://github.com/ascherj/pathreview/pull/884
+
+**Branch:** fix/153-faithfulness-checker-none-text
+
+**What you built:**
+Fixed a crash in `FaithfulnessChecker.check()` caused by context chunks
+with `"text": None` — `.get()`'s default only applied to missing keys,
+not explicit `None` values, so `" ".join(...)` raised a `TypeError`.
+Changed the lookup to `chunk.get("text") or ""` to normalize both cases.
+
+**Tests added or updated:**
+No new tests were added — the existing test
+`tests/unit/test_faithfulness_checker.py::test_none_context_chunk_text`
+already covered this exact case and now passes with the fix in place.
+
+**Self-review confirmation:** [x] make test-unit passes  [ ] make check passes
+
+I ran `make test-unit` before and after the fix and confirmed the
+targeted test now passes with no new regressions — 3 pre-existing
+failures in `test_faithfulness_checker.py` (unrelated scoring-logic
+issues) were present identically before and after my change. I did not
+run `make check` as its own command; ruff, black, and mypy all passed
+via the project's pre-commit hooks on every commit.
+
+**Draft PR feedback received from:** none
